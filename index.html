@@ -3,195 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Blog Pessoal</title>
+    <title>Meu Blog Pessoal & Tech</title>
     <style>
-        /* Variáveis de Cores (Tema Claro) */
         :root {
-            --bg-primary: #f4f4f9;
+            --bg-primary: #f8f9fa;
             --bg-card: #ffffff;
-            --text-primary: #333333;
-            --text-secondary: #666666;
-            --accent-color: #007bff;
-            --border-color: #dddddd;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border-color: #e5e7eb;
+            --tag-bg: #e0e7ff;
+            --tag-color: #3730a3;
         }
 
-        /* Variáveis para o Tema Escuro */
         body.dark-theme {
-            --bg-primary: #121212;
-            --bg-card: #1e1e1e;
-            --text-primary: #e0e0e0;
-            --text-secondary: #aaaaaa;
-            --accent-color: #375a7f;
-            --border-color: #333333;
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border-color: #334155;
+            --tag-bg: #1e1b4b;
+            --tag-color: #c7d2fe;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
+            line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Nav & Header */
         header {
             background-color: var(--bg-card);
             border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
         #theme-toggle {
-            background: none;
+            background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
             padding: 0.5rem 1rem;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
+        /* Banner de Destaque */
+        .hero {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Main Layout */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 2rem auto;
             padding: 0 1rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
             gap: 2rem;
         }
 
-        .posts {
-            flex: 3;
-        }
-
+        /* Posts */
         .post {
             background-color: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 8px;
             border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .post-tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .post-title {
+            margin: 0.8rem 0 0.4rem;
+            font-size: 1.6rem;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .post-content {
             margin-bottom: 1.5rem;
         }
 
-        .post h2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .post .date {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: block;
-            margin-bottom: 1rem;
-        }
-
-        .post p {
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .read-more {
+        .btn-read-more {
+            display: inline-block;
             color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
         }
 
-        .sidebar {
-            flex: 1;
+        /* Seção de Comentários Integrada no Post */
+        .comments-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
         }
 
+        .comments-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .comment-form button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .comment-list {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .comment-list li {
+            background-color: var(--bg-primary);
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sidebar Widgets */
         .widget {
             background-color: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 8px;
             border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
         .widget h3 {
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 0.2rem;
         }
 
-        .widget ul {
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
             list-style: none;
         }
 
-        .widget ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .widget a {
+        .social-links a {
             color: var(--accent-color);
             text-decoration: none;
         }
 
-        footer {
-            text-align: center;
-            padding: 1.5rem 0;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            margin-top: 2rem;
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
         }
 
-        /* Responsividade para celulares */
-        @media (max-width: 768px) {
+        .newsletter-form button {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsividade */
+        @media (max-width: 850px) {
             .container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                display: none; /* Simplificado para telas menores */
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
+    <!-- Header & Navegação -->
     <header>
         <div class="header-container">
-            <h1>Meu Blog Pessoal</h1>
+            <a href="#" class="logo">DevBlog.</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Artigos</a></li>
+                    <li><a href="#">Projetos</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </nav>
             <button id="theme-toggle">🌙 Modo Escuro</button>
         </div>
     </header>
 
-    <!-- Conteúdo Principal -->
+    <!-- Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Bem-vindo ao Meu Diário de Código & Vida</h2>
+            <p>Escrevo sobre desenvolvimento web, tecnologia, produtividade e projetos pessoais.</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Central -->
     <div class="container">
+        <!-- Feed de Posts -->
         <main class="posts">
             
             <article class="post">
-                <h2>Primeiro Post do Blog</h2>
-                <span class="date">25 de Agosto, 2026</span>
-                <p>Boas-vindas ao meu novo espaço na web! Aqui vou compartilhar minhas ideias, aprendizados e experiências do dia a dia.</p>
-                <a href="#" class="read-more">Leia mais</a>
+                <span class="post-tag">Carreira</span>
+                <h2 class="post-title">O que aprendi em 2026 sobre desenvolvimento web</h2>
+                <div class="post-meta">Publicado em 25 de Agosto, 2026 • 5 min de leitura</div>
+                <div class="post-content">
+                    <p>O ecossistema do desenvolvimento web evoluiu drasticamente. Hoje em dia, entender os conceitos fundamentais de HTML semântico, CSS flexível e manipulação nativa da DOM se tornou um diferencial valioso para construir aplicações leves e rápidas.</p>
+                </div>
+                <a href="#" class="btn-read-more">Ler artigo completo &rarr;</a>
+
+                <!-- Área de Comentários Interativa -->
+                <div class="comments-section">
+                    <h4>Comentários</h4>
+                    <form class="comment-form" onsubmit="addComment(event, 'comments-list-1', 'input-1')">
+                        <input type="text" id="input-1" placeholder="Escreva um comentário..." required>
+                        <button type="submit">Enviar</button>
+                    </form>
+                    <ul class="comment-list" id="comments-list-1">
+                        <li><strong>Ana:</strong> Excelente reflexão! O básico bem feito faz toda a diferença.</li>
+                    </ul>
+                </div>
             </article>
 
             <article class="post">
-                <h2>Como Aprendi a Programar em HTML e CSS</h2>
-                <span class="date">20 de Agosto, 2026</span>
-                <p>Criar sites no início parece complicado, mas com a prática diária a sintaxe começa a fazer todo o sentido...</p>
-                <a href="#" class="read-more">Leia mais</a>
+                <span class="post-tag">Tutorial</span>
+                <h2 class="post-title">Como organizar seu CSS sem frameworks</h2>
+                <div class="post-meta">Publicado em 18 de Agosto, 2026 • 4 min de leitura</div>
+                <div class="post-content">
+                    <p>Frameworks facilitam o início, mas usar CSS puro com Variáveis Nativas (Custom Properties) oferece um controle muito maior sobre o desempenho e a estilização do site. Veja como estruturar seu código de forma limpa.</p>
+                </div>
+                <a href="#" class="btn-read-more">Ler artigo completo &rarr;</a>
+
+                <div class="comments-section">
+                    <h4>Comentários</h4>
+                    <form class="comment-form" onsubmit="addComment(event, 'comments-list-2', 'input-2')">
+                        <input type="text" id="input-2" placeholder="Escreva um comentário..." required>
+                        <button type="submit">Enviar</button>
+                    </form>
+                    <ul class="comment-list" id="comments-list-2">
+                        <li><strong>Carlos:</strong> As variáveis CSS realmente mudaram o jogo.</li>
+                    </ul>
+                </div>
             </article>
 
         </main>
 
-        <!-- Barra Lateral -->
+        <!-- Barra Lateral (Sidebar) -->
         <aside class="sidebar">
             <div class="widget">
-                <h3>Sobre Mim</h3>
-                <p>Olá! Sou entusiasta da tecnologia e estou construindo meu cantinho na internet.</p>
+                <h3>Sobre o Autor</h3>
+                <p>Desenvolvedor front-end entusiasta por interfaces simples, acessíveis e rápidas.</p>
             </div>
-            
+
             <div class="widget">
-                <h3>Categorias</h3>
-                <ul>
-                    <li><a href="#">Tecnologia</a></li>
-                    <li><a href="#">Estudos</a></li>
-                    <li><a href="#">Reflexões</a></li>
+                <h3>Newsletter</h3>
+                <p>Receba novos artigos diretamente no seu e-mail.</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="seu@email.com" required>
+                    <button type="submit">Inscrever-se</button>
+                </form>
+            </div>
+
+            <div class="widget">
+                <h3>Redes Sociais</h3>
+                <ul class="social-links">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Twitter/X</a></li>
                 </ul>
             </div>
         </aside>
@@ -199,22 +381,40 @@
 
     <!-- Rodapé -->
     <footer>
-        <p>&copy; 2026 Meu Blog Pessoal. Todos os direitos reservados.</p>
+        <p>&copy; 2026 DevBlog. Desenvolvido com HTML, CSS e JS puro.</p>
     </footer>
 
-    <!-- JavaScript Integrado -->
+    <!-- Scripts JavaScript -->
     <script>
+        // Alternar Tema Claro / Escuro
         const themeToggleBtn = document.getElementById('theme-toggle');
 
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
-            
-            if (document.body.classList.contains('dark-theme')) {
-                themeToggleBtn.textContent = '☀️ Modo Claro';
-            } else {
-                themeToggleBtn.textContent = '🌙 Modo Escuro';
-            }
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggleBtn.textContent = isDark ? '☀️ Modo Claro' : '🌙 Modo Escuro';
         });
+
+        // Adicionar Comentário dinamicamente
+        function addComment(event, listId, inputId) {
+            event.preventDefault();
+            const input = document.getElementById(inputId);
+            const list = document.getElementById(listId);
+
+            if (input.value.trim() !== '') {
+                const newComment = document.createElement('li');
+                newComment.innerHTML = `<strong>Você:</strong> ${input.value}`;
+                list.appendChild(newComment);
+                input.value = '';
+            }
+        }
+
+        // Inscrição Simples na Newsletter
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            alert('Obrigado por se inscrever na newsletter!');
+            event.target.reset();
+        }
     </script>
 </body>
 </html>
